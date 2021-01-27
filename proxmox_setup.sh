@@ -7,7 +7,7 @@ rm /etc/apt/sources.list.d/pve-enterprise.list
 echo "deb http://download.proxmox.com/debian buster pve-no-subscription" >> /etc/apt/sources.list
 
 # Remove subscription banner on login
-sed -i.backup -z "s/res === null || res === undefined || \!res || res\n\t\t\t.data.status \!== 'Active'/false/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
+sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
 
 # Update all packages
 apt update -qy
